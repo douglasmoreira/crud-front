@@ -72,7 +72,24 @@ $(function () {
             registro.Formacao = Formacao
             registro.ID = dados.length + 1
 
-            dados.push(registro)
+            dados.push(registro);
+            fetch("http://localhost:8080/registro", {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                },
+
+                body: JSON.stringify(registro)
+            }).then(function (response) {
+                if (response.ok) {
+                    console.log('Network response was ok.');
+                } else {
+                    console.log('Network response was not ok.');
+                }
+            })
+                .catch(function (error) {
+                    console.log('There has been a problem with your fetch operation: ' + error.message);
+                });
         } else {
             dados.forEach(function (item) {
                 if (item.ID == _id) {
